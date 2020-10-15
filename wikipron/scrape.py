@@ -44,13 +44,23 @@ def _scrape_once(data, config: Config) -> Iterator[WordPronPair]:
         request = session.get(_PAGE_TEMPLATE.format(word=word), timeout=10)
         for word, pron in config.extract_word_pron(word, request, config):
             # Pronunciation processing is done in NFD-space;
-            # we convert back to NFC aftewards.
+            # we convert back to NFC afterwards.
             yield word, unicodedata.normalize("NFC", pron)
+
+
+def _language_name_for_scraping(language):
+    """Handle cases where X is under a "macrolanguage" on Wiktionary."""
+    if language == "Cantonese":
+        return "Chinese"
+    else:
+        return language
 
 
 def scrape(config: Config) -> Iterator[WordPronPair]:
     """Scrapes with a given configuration."""
-    category = _CATEGORY_TEMPLATE.format(language=config.language)
+    category = _CATEGORY_TEMPLATE.format(
+        language=_language_name_for_scraping(config.language)
+    )
     requests_params = {
         "action": "query",
         "format": "json",

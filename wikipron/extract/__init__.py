@@ -6,6 +6,7 @@ from wikipron.extract.khb import extract_word_pron_lu
 from wikipron.extract.shn import extract_word_pron_shan
 from wikipron.extract.tha import extract_word_pron_thai
 from wikipron.extract.vie import extract_word_pron_vie
+from wikipron.extract.yue import extract_word_pron_yue
 
 
 # All extraction functions must have the exact same function signature.
@@ -19,4 +20,5 @@ EXTRACTION_FUNCTIONS = {
     "Shan": extract_word_pron_shan,
     "Thai": extract_word_pron_thai,
     "Vietnamese": extract_word_pron_vie,
+    "Cantonese": extract_word_pron_yue,
 }

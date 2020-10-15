@@ -189,7 +189,11 @@
         "iso639_name": "Yue Chinese",
         "wiktionary_name": "Cantonese",
         "wiktionary_code": "yue",
-        "casefold": false
+        "casefold": false,
+        "no_skip_spaces_pron": true,
+        "script": {
+            "hani": "Han"
+        }
     },
     "crx": {
         "iso639_name": "Carrier",
@@ -815,12 +819,6 @@
         "wiktionary_name": "Neapolitan",
         "wiktionary_code": "nap",
         "casefold": true
-    },
-    "nep": {
-        "iso639_name": "Nepali (macrolanguage)",
-        "wiktionary_name": "Nepali",
-        "wiktionary_code": "ne",
-        "casefold": false
     },
     "frr": {
         "iso639_name": "Northern Frisian",
