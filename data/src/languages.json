@@ -190,10 +190,7 @@
         "wiktionary_name": "Cantonese",
         "wiktionary_code": "yue",
         "casefold": false,
-        "no_skip_spaces_pron": true,
-        "script": {
-            "hani": "Han"
-        }
+        "no_skip_spaces_pron": true
     },
     "crx": {
         "iso639_name": "Carrier",
