@@ -2,10 +2,9 @@ import datetime
 import re
 
 import pytest
-import requests_html
 
 from wikipron.config import _PHONEMES_REGEX, _PHONES_REGEX
-from wikipron.scrape import _PAGE_TEMPLATE, HTTP_HEADERS
+from wikipron.scrape import _PAGE_TEMPLATE, http_html_session
 
 from . import can_connect_to_wiktionary, config_factory
 
@@ -188,10 +187,8 @@ def test_american_english_dialect_selection():
     # Pick a word for which Wiktionary has dialect-specified pronunciations
     # for both US and non-US English.
     word = "mocha"
-    html_session = requests_html.HTMLSession()
-    response = html_session.get(
-        _PAGE_TEMPLATE.format(word=word), headers=HTTP_HEADERS
-    )
+    with http_html_session() as session:
+        response = session.get(_PAGE_TEMPLATE.format(word=word))
     # Construct two configs to demonstrate the US dialect (non-)selection.
     config_only_us = config_factory(key="en", dialect="US | American English")
     config_any_dialect = config_factory(key="en")

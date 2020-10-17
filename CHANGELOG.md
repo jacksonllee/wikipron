@@ -73,6 +73,7 @@ Unreleased
 -   Specified UTF-8 encoding in handling text files. (\#221)
 -   Moved previous contents of `tests` into `tests/test_wikipron` (\#226)
 -   updated the packages version numbers in requirements.txt to their latest according to PyPI (\#238)
+-   Standardized HTTP requests for retries and timeouts. (\# ???)
 
 ### Deprecated
 ### Removed

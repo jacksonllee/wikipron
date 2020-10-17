@@ -25,12 +25,11 @@ import json
 import re
 
 from typing import Dict, List
-from wikipron.scrape import HTTP_HEADERS
 
 import iso639
-import requests
-import requests_html  # type: ignore
+
 import wikipron
+from wikipron.scrape import http_session, http_html_session
 
 LANGUAGES_PATH = "languages.json"
 UNMATCHED_LANGUAGES_PATH = "unmatched_languages.json"
@@ -59,9 +58,8 @@ def _get_language_categories() -> List[str]:
     }
     language_categories = []
     while True:
-        data = requests.get(
-            URL, params=requests_params, headers=HTTP_HEADERS
-        ).json()
+        with http_session() as session:
+            data = session.get(URL, params=requests_params).json()
         for member in data["query"]["categorymembers"]:
             category = member["title"]
             language_categories.append(category)
@@ -86,9 +84,8 @@ def _get_language_sizes(categories: List[str]) -> Dict[str, int]:
             "prop": "categoryinfo",
             "titles": "|".join(categories[start:end]),
         }
-        data = requests.get(
-            URL, params=requests_params, headers=HTTP_HEADERS
-        ).json()
+        with http_session() as session:
+            data = session.get(URL, params=requests_params).json()
         for page in data["query"]["pages"].values():
             size = page["categoryinfo"]["size"]
             language = re.search(
@@ -111,12 +108,10 @@ def _scrape_wiktionary_language_code(lang_title: str) -> str:
                 /code
     """
 
-    session = requests_html.HTMLSession()
-    language_page = session.get(
-        f"https://en.wiktionary.org/wiki/Category:{lang_title}_language",
-        timeout=10,
-        headers=HTTP_HEADERS,
-    )
+    with http_html_session() as session:
+        language_page = session.get(
+            f"https://en.wiktionary.org/wiki/Category:{lang_title}_language"
+        )
     return language_page.html.xpath(lang_code_selector)[0].text
 
 
