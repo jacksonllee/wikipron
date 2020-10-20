@@ -17,7 +17,8 @@ if typing.TYPE_CHECKING:
 _PRON_XPATH_TEMPLATE = """
     //div[@class="vsHide"]
         //ul
-            //li[(a[@title="w:Cantonese"])]
+            //li[a[@title="w:Cantonese"]]
+                //li[a[@title="w:Standard Cantonese"]]
 """
 
 
