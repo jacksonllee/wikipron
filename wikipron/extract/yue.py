@@ -18,7 +18,7 @@ _PRON_XPATH_TEMPLATE = """
     //div[@class="vsHide"]
         //ul
             //li[a[@title="w:Cantonese"]]
-                //li[a[@title="w:Standard Cantonese"]]
+                //ul//li[small[i[a[@title="w:Standard Cantonese"]]]]
 """
 
 
